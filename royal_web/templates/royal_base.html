@@ -1,0 +1,26 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ page_title or "رويال | حلول المياه والطاقة" }}{% endblock %}
+
+{% block head_include %}
+<meta name="description" content="{{ page_description or 'رويال شريكك الهندسي لتصميم وتوريد وتركيب حلول المياه والطاقة المتكاملة.' }}">
+<meta name="theme-color" content="#0b5d3b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block navbar %}
+{% include "templates/includes/royal_navbar.html" %}
+{% endblock %}
+
+{% block page_container %}
+<main id="main-content" class="royal-main">
+	{% block royal_content %}{% endblock %}
+</main>
+{% include "templates/includes/royal_mobile_bar.html" %}
+{% endblock %}
+
+{% block footer %}
+{% include "templates/includes/royal_footer.html" %}
+{% endblock %}

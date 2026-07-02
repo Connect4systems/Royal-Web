@@ -1,0 +1,27 @@
+{% set page_title = "طلب عرض سعر | رويال" %}
+{% set page_description = "اطلب عرض سعر فني من رويال لحلول المياه والطاقة." %}
+{% extends "templates/royal_base.html" %}
+{% block royal_content %}
+<section class="page-hero"><div class="royal-container page-hero-content"><div class="breadcrumbs"><a href="/">الرئيسية</a><span>/</span><span>طلب عرض سعر</span></div><span class="eyebrow">ابدأ مشروعك بخطوة صحيحة</span><h1>شاركنا احتياجك، وسنراجع الحل هندسيًا</h1><p>املأ البيانات الأساسية. سيجمع مهندس المبيعات التفاصيل الناقصة معك قبل إعداد العرض الفني والمالي.</p></div></section>
+<section class="royal-section royal-section-soft"><div class="royal-container contact-grid"><aside class="contact-panel"><h2>ماذا يحدث بعد الإرسال؟</h2><p>لا نرسل سعرًا عشوائيًا. نراجع البيانات أولًا لنضمن أن العرض يناسب التشغيل الفعلي.</p><div class="contact-list"><div><strong>1. مراجعة أولية</strong><span>يراجع مهندسنا البيانات خلال يوم عمل.</span></div><div><strong>2. استكمال التفاصيل</strong><span>مكالمة فنية أو معاينة حسب طبيعة المشروع.</span></div><div><strong>3. العرض الفني والمالي</strong><span>نطاق واضح ومكونات ومواصفات وجدول تنفيذ.</span></div><div><strong>تحتاج ردًا أسرع؟</strong><a href="https://wa.me/201111753518">تواصل عبر واتساب ←</a></div></div></aside>
+<form class="quote-form" data-quote-form>
+	<h2>بيانات طلب العرض</h2>
+	<p>هذه الحقول مبنية على بيانات نموذج الاستفسار الفني الحالي. الحقول بعلامة * مطلوبة.</p>
+	<div class="form-grid">
+		<div class="form-field"><label for="quote-name">الاسم *</label><input id="quote-name" name="first_name" required autocomplete="name"></div>
+		<div class="form-field"><label for="quote-phone">رقم الهاتف *</label><input id="quote-phone" name="mobile_no" required inputmode="tel" autocomplete="tel"></div>
+		<div class="form-field full"><label for="quote-location">موقع العمل *</label><input id="quote-location" name="custom_site_location" required></div>
+		<div class="form-field"><label for="quote-capacity">قدرة المحطة المطلوبة (كيلو وات)</label><input id="quote-capacity" name="custom_station_capacity" type="number" min="0" step="0.01"></div>
+		<div class="form-field"><label for="quote-pump-power">قدرة الغاطس المطلوبة</label><input id="quote-pump-power" name="custom_submersible_pump_power"></div>
+		<div class="form-field"><label for="quote-water-level">منسوب سطح المياه (متر)</label><input id="quote-water-level" name="custom_water_level" type="number" min="0" step="0.01"></div>
+		<div class="form-field"><label for="quote-irrigation">نوع الري</label><select id="quote-irrigation" name="custom_irrigation_method"><option value="">اختر</option><option>غمر</option><option>تنقيط</option><option>رشاشات</option><option>بيفت</option><option>أخرى</option></select></div>
+		<div class="form-field"><label for="quote-electricity">مصدر الكهرباء الحالي</label><select id="quote-electricity" name="custom_electricity_source"><option value="">اختر</option><option>طاقة شمسية</option><option>ديزل</option><option>كهرباء حكومية</option></select></div>
+		<div class="form-field"><label for="quote-salts">نسبة الأملاح في المياه</label><input id="quote-salts" name="custom_salt_levels"></div>
+		<div class="form-field"><label for="quote-origin">منشأ الغاطس المفضل</label><select id="quote-origin" name="custom_submersible_origin"><option value="">اختر</option><option>تركي</option><option>هندي</option></select></div>
+		<div class="form-field"><label for="quote-brand">ماركة الغاطس المفضلة</label><select id="quote-brand" name="custom_submersible_brand"><option value="">اختر</option><option>كورولا</option><option>فيرات</option><option>فنسان</option><option>شاكتي</option><option>ماكس</option><option>SP</option><option>KPS</option><option>أخرى</option></select></div>
+		<div class="form-field full"><label for="quote-components">مكونات محددة تفضل وجودها بالمحطة</label><textarea id="quote-components" name="custom_specific_components"></textarea></div>
+		<div class="honeypot" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+		<div class="form-submit-row"><button class="royal-btn royal-btn-primary" type="submit">إرسال طلب العرض</button><p class="form-status" data-form-status aria-live="polite"></p></div>
+	</div>
+</form></div></section>
+{% endblock %}
