@@ -1,4 +1,17 @@
-document.addEventListener("DOMContentLoaded", () => {
+const initRoyalWebsite = () => {
+	if (!document.querySelector(".whatsapp-float")) {
+		document.body.insertAdjacentHTML(
+			"beforeend",
+			'<a class="whatsapp-float" href="https://wa.me/201016965712?text=مرحباً%20رويال،%20أرغب%20في%20الاستفسار" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">واتساب</a>',
+		);
+	}
+	if (!document.querySelector(".mobile-action-bar")) {
+		document.body.insertAdjacentHTML(
+			"beforeend",
+			'<div class="mobile-action-bar" aria-label="إجراءات سريعة"><a href="tel:+201016965712">اتصال</a><a href="https://wa.me/201016965712" target="_blank" rel="noopener">واتساب</a><a href="/inquiry/new">عرض سعر</a></div>',
+		);
+	}
+
 	const toggle = document.querySelector("[data-nav-toggle]");
 	const nav = document.querySelector("[data-nav]");
 
@@ -107,4 +120,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	});
-});
+};
+
+if (document.readyState === "loading") {
+	document.addEventListener("DOMContentLoaded", initRoyalWebsite);
+} else {
+	initRoyalWebsite();
+}

@@ -1,7 +1,7 @@
 ### Royal Web
 
 Professional Arabic RTL website for Royal's water and energy solutions, built as
-standard Frappe/ERPNext v15 `www` pages.
+standard, database-backed Frappe/ERPNext v15 **Web Page** records.
 
 ### Included pages
 
@@ -12,7 +12,8 @@ standard Frappe/ERPNext v15 `www` pages.
   cables, controls, pipes and well accessories
 - Contact, Quote Request, Privacy, Terms
 - Shared RTL navbar/footer, responsive mobile actions, project filtering and FAQ
-- Public quote/contact forms that create a Lead in ERPNext CRM
+- Existing `/inquiry/new` Web Form integration for ERPNext CRM Leads
+- Website Theme, standard Navbar, standard Footer and public File records
 
 ### Before deployment
 
@@ -34,26 +35,34 @@ bench get-app $URL_OF_THIS_REPO --branch develop
 bench install-app royal_web
 ```
 
-Then build assets and clear the website cache:
+Run migrate. The `after_migrate` hook creates the standard website records once:
 
 ```bash
-bench build --app royal_web
-bench --site your-site.local clear-cache
 bench --site your-site.local migrate
+bench --site your-site.local clear-cache
 ```
 
-The hook `home_page = "index"` makes the new homepage the website root. Every
-route is an independent file in `royal_web/www`, while the shared header/footer
-live in `royal_web/templates/includes` and the design system is in
-`royal_web/public/css/royal.css`.
+After this command, edit all content from:
 
-Quote and contact submissions call
-`royal_web.api.submit_quote` and create a standard ERPNext `Lead` with source
-`Website`.
+- **Website > Web Site > Web Page** — every page and its SEO fields
+- **Website > Setup > Website Theme > Royal Modern RTL** — all CSS and JavaScript
+- **Website > Setup > Website Settings** — home page, navbar, footer and logo
+- **File** — all website images
 
-All primary quote and consultation buttons link to the existing ERPNext inquiry
-form at `/inquiry/new` (`https://royal.connect4systems.com/inquiry/new`). The
-custom `/quote-request` page remains available as a fallback.
+The app files are only source/installation material. Published routes are served
+from standard Web Page database records, which take precedence over `www` files.
+Later migrations do not overwrite changes made in Desk.
+
+To intentionally rebuild every Web Page and the theme from source:
+
+```bash
+bench --site your-site.local execute \
+  royal_web.standard_pages.install_standard_website --kwargs "{'force': true}"
+```
+
+Do not use `force` after editors have changed content in Desk unless those edits
+may be replaced. All quote and consultation buttons link to the existing
+ERPNext Web Form at `/inquiry/new`.
 
 ### Contributing
 

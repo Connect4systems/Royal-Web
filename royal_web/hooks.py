@@ -29,8 +29,8 @@ app_license = "mit"
 # app_include_js = "/assets/royal_web/js/royal_web.js"
 
 # include js, css files in header of web template
-web_include_css = "/assets/royal_web/css/royal.css"
-web_include_js = "/assets/royal_web/js/royal.js"
+# The website is materialized as editable Web Page and Website Theme records.
+# No app asset hooks are needed after the one-time database installation.
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "royal_web/public/scss/website"
@@ -56,8 +56,7 @@ web_include_js = "/assets/royal_web/js/royal.js"
 # Home Pages
 # ----------
 
-# application home page (will override Website Settings)
-home_page = "index"
+# application home page is managed in Website Settings by standard_pages.py
 
 # website user home page (by Role)
 # role_home_page = {
@@ -84,6 +83,7 @@ home_page = "index"
 
 # before_install = "royal_web.install.before_install"
 # after_install = "royal_web.install.after_install"
+after_migrate = "royal_web.standard_pages.install_standard_website"
 
 # Uninstallation
 # ------------

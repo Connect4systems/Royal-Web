@@ -11,3 +11,7 @@ replaced with Royal's real project photography before launch.
 
 Review the current [Unsplash License](https://unsplash.com/license) before
 redistributing the images outside this website.
+
+The files under `partners/` are partner logos reused from the website of Royal's
+sister company, Solar City (`solarcity-eg.com/partners.html`), at the user's
+request. All brand names and logos remain trademarks of their respective owners.
