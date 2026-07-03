@@ -1,0 +1,74 @@
+/*
+ * Site-wide contrast overrides.
+ *
+ * This file is loaded through web_include_css so fixes also reach existing
+ * sites whose editable database Website Theme predates the source stylesheet.
+ */
+.hero,
+.page-hero,
+.royal-section-dark,
+.solution-card,
+.cta-band,
+.contact-panel,
+.image-badge {
+	--text-color: #f7fbfa;
+	--heading-color: #f7fbfa;
+	color: #f7fbfa;
+}
+
+.hero h1,
+.hero h2,
+.hero h3,
+.hero h4,
+.hero h5,
+.hero h6,
+.page-hero h1,
+.page-hero h2,
+.page-hero h3,
+.page-hero h4,
+.page-hero h5,
+.page-hero h6,
+.royal-section-dark h1,
+.royal-section-dark h2,
+.royal-section-dark h3,
+.royal-section-dark h4,
+.royal-section-dark h5,
+.royal-section-dark h6,
+.solution-card h1,
+.solution-card h2,
+.solution-card h3,
+.solution-card h4,
+.solution-card h5,
+.solution-card h6,
+.cta-band h1,
+.cta-band h2,
+.cta-band h3,
+.cta-band h4,
+.cta-band h5,
+.cta-band h6,
+.contact-panel h1,
+.contact-panel h2,
+.contact-panel h3,
+.contact-panel h4,
+.contact-panel h5,
+.contact-panel h6,
+.image-badge h1,
+.image-badge h2,
+.image-badge h3,
+.image-badge h4,
+.image-badge h5,
+.image-badge h6 {
+	color: #f7fbfa !important;
+}
+
+.hero p,
+.page-hero p,
+.royal-section-dark .section-heading p,
+.royal-section-dark .process-step p,
+.solution-card p,
+.cta-band p,
+.contact-panel > p,
+.contact-list span,
+.contact-list a {
+	color: #c7d6d7 !important;
+}

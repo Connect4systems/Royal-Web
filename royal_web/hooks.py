@@ -28,9 +28,10 @@ app_license = "mit"
 # app_include_css = "/assets/royal_web/css/royal_web.css"
 # app_include_js = "/assets/royal_web/js/royal_web.js"
 
-# include js, css files in header of web template
-# The website is materialized as editable Web Page and Website Theme records.
-# No app asset hooks are needed after the one-time database installation.
+# Include the source stylesheet on every website route. The database Website
+# Theme is intentionally editable and installed only once, while this asset
+# carries site-wide fixes to existing installations without replacing pages.
+web_include_css = "/assets/royal_web/css/contrast-fixes.css"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "royal_web/public/scss/website"
