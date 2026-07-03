@@ -258,17 +258,18 @@ def _remove_public_source_references(frappe) -> int:
 		if not page_name:
 			continue
 		page = frappe.get_doc("Web Page", page_name)
-		content = page.content or ""
+		original_content = page.get("main_section_html") or ""
+		content = original_content
 		for old, new in route_replacements:
 			content = content.replace(old, new)
-		changed = content != (page.content or "")
+		changed = content != original_content
 		if route in meta_replacements:
 			old_meta, new_meta = meta_replacements[route]
-			if page.meta_description == old_meta:
-				page.meta_description = new_meta
+			if page.get("meta_description") == old_meta:
+				page.set("meta_description", new_meta)
 				changed = True
 		if changed:
-			page.content = content
+			page.set("main_section_html", content)
 			page.save(ignore_permissions=True)
 			updated += 1
 	return updated
