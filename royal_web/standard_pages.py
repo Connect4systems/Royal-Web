@@ -220,6 +220,60 @@ def _upsert_pages(frappe, pages: list[dict], force: bool) -> dict[str, int]:
 	return result
 
 
+def _remove_public_source_references(frappe) -> int:
+	"""Remove legacy provenance copy without replacing other Desk edits."""
+	replacements = {
+		"brands": (
+			(
+				"شبكة خبرات المجموعة",
+				"شبكة علامات موثوقة",
+			),
+			(
+				"شركاء الطاقة والمياه لدى رويال وسولار سيتي",
+				"شركاء الطاقة والمياه لدى رويال",
+			),
+			(
+				"باعتبار سولار سيتي شركة شقيقة، نستفيد من نطاق مشترك من العلامات والحلول، مع اختيار المنتج الأنسب للتصرف والرفع والقدرة وظروف الموقع.",
+				"نوفر نطاقًا متكاملًا من العلامات والحلول، مع اختيار المنتج الأنسب للتصرف والرفع والقدرة وظروف الموقع.",
+			),
+			(
+				'<div class="brand-notice"><strong>ملاحظة مهمة</strong><p>هذه الشعارات مأخوذة من صفحة شركاء الشركة الشقيقة سولار سيتي وتوضح نطاق خبرات المجموعة. يتم تأكيد المورد والعلامة والموديل والضمان والتوفر داخل عرض رويال الرسمي لكل مشروع.</p></div>',
+				"",
+			),
+		),
+		"services": (
+			("خبرات الشركة الشقيقة", "خبرات متكاملة"),
+			("نطاق أوسع من خلال تكامل رويال وسولار سيتي", "نطاق أوسع لتغطية احتياجات مشروعك"),
+		),
+	}
+	meta_replacements = {
+		"brands": (
+			"شركاء وعلامات حلول الطاقة والمياه ضمن خبرات رويال وشركتها الشقيقة سولار سيتي.",
+			"شركاء وعلامات موثوقة لحلول الطاقة والمياه ضمن خبرات رويال.",
+		),
+	}
+	updated = 0
+	for route, route_replacements in replacements.items():
+		page_name = frappe.db.get_value("Web Page", {"route": route}, "name")
+		if not page_name:
+			continue
+		page = frappe.get_doc("Web Page", page_name)
+		content = page.content or ""
+		for old, new in route_replacements:
+			content = content.replace(old, new)
+		changed = content != (page.content or "")
+		if route in meta_replacements:
+			old_meta, new_meta = meta_replacements[route]
+			if page.meta_description == old_meta:
+				page.meta_description = new_meta
+				changed = True
+		if changed:
+			page.content = content
+			page.save(ignore_permissions=True)
+			updated += 1
+	return updated
+
+
 def _set_navigation(settings) -> None:
 	settings.set("top_bar_items", [])
 	nav_items = [
@@ -310,8 +364,16 @@ def install_standard_website(force: bool | str = False) -> dict:
 	from frappe.defaults import get_global_default, set_global_default
 
 	force = str(force).lower() in {"1", "true", "yes"}
+	cleaned_pages = _remove_public_source_references(frappe)
 	if get_global_default(INSTALL_KEY) and not force:
-		return {"status": "kept", "reason": "Standard website is already installed"}
+		if cleaned_pages:
+			frappe.clear_cache()
+			frappe.db.commit()
+		return {
+			"status": "kept",
+			"reason": "Standard website is already installed",
+			"cleaned_pages": cleaned_pages,
+		}
 
 	media_urls = _upload_media(frappe)
 	theme_status = _upsert_theme(frappe, media_urls, force)
@@ -325,4 +387,5 @@ def install_standard_website(force: bool | str = False) -> dict:
 		"theme": theme_status,
 		"pages": page_result,
 		"media": len(media_urls),
+		"cleaned_pages": cleaned_pages,
 	}

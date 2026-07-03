@@ -1,4 +1,7 @@
-# Image credits
+# Internal image credits
+
+This file is internal project documentation and must not be published as a
+website asset.
 
 The placeholder photography in this folder is sourced from Unsplash and may be
 replaced with Royal's real project photography before launch.
